@@ -5,20 +5,15 @@ import com.logging.platform.models.LogDataLevel;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "logs")
 public class LogEntity extends PanacheEntity {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id")
-    private ServicesEntity serviceId;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exception_id")
-    private ExceptionEntity exceptionId;
 
     private String loggerClassName;
 
@@ -40,10 +35,6 @@ public class LogEntity extends PanacheEntity {
 
     private int threadId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "mdc_id")
-    private MdcEntity mdcEntity;
-
     private String ndc;
 
     @Column(updatable = false)
@@ -55,29 +46,17 @@ public class LogEntity extends PanacheEntity {
     @Column(nullable = false)
     private Integer processId;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id")
+    private ServicesEntity servicesEntity;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exception_id")
+    private ExceptionEntity exceptionEntity;
 
-    public ServicesEntity getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(ServicesEntity serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public ExceptionEntity getExceptionId() {
-        return exceptionId;
-    }
-
-    public void setExceptionId(ExceptionEntity exceptionId) {
-        this.exceptionId = exceptionId;
-    }
+    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, Object> mdc;
 
     public String getLoggerClassName() {
         return loggerClassName;
@@ -173,5 +152,29 @@ public class LogEntity extends PanacheEntity {
 
     public void setProcessId(Integer processId) {
         this.processId = processId;
+    }
+
+    public ServicesEntity getServiceId() {
+        return servicesEntity;
+    }
+
+    public void setServiceId(ServicesEntity serviceId) {
+        this.servicesEntity = serviceId;
+    }
+
+    public ExceptionEntity getExceptionEntity() {
+        return exceptionEntity;
+    }
+
+    public void setExceptionEntity(ExceptionEntity exceptionId) {
+        this.exceptionEntity = exceptionId;
+    }
+
+    public Map<String, Object> getMdc() {
+        return mdc;
+    }
+
+    public void setMdc(Map<String, Object> mdc) {
+        this.mdc = mdc;
     }
 }
