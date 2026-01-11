@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -36,9 +37,6 @@ public class LogEntity extends PanacheEntity {
     private int threadId;
 
     private String ndc;
-
-    @Column(updatable = false)
-    private LocalDateTime createData;
 
     @Column(nullable = false)
     private String processName;
@@ -128,14 +126,6 @@ public class LogEntity extends PanacheEntity {
 
     public void setNdc(String ndc) {
         this.ndc = ndc;
-    }
-
-    public LocalDateTime getCreateData() {
-        return createData;
-    }
-
-    public void setCreateData(LocalDateTime createData) {
-        this.createData = createData;
     }
 
     public String getProcessName() {
