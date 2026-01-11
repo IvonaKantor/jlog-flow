@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -46,7 +45,7 @@ public class LogEntity extends PanacheEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
-    private ServicesEntity servicesEntity;
+    private ServiceEntity serviceEntity;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exception_id")
@@ -144,12 +143,12 @@ public class LogEntity extends PanacheEntity {
         this.processId = processId;
     }
 
-    public ServicesEntity getServiceId() {
-        return servicesEntity;
+    public ServiceEntity getServiceEntity() {
+        return serviceEntity;
     }
 
-    public void setServiceId(ServicesEntity serviceId) {
-        this.servicesEntity = serviceId;
+    public void setServiceEntity(ServiceEntity serviceEntity) {
+        this.serviceEntity = serviceEntity;
     }
 
     public ExceptionEntity getExceptionEntity() {
