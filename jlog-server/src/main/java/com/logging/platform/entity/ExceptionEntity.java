@@ -24,7 +24,7 @@ public class ExceptionEntity extends PanacheEntity {
     @OneToMany(mappedBy = "exceptionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ExceptionFrameEntity> frames = new ArrayList<>();
 
-    @OneToOne(mappedBy = "exceptionId")
+    @OneToOne(mappedBy = "exceptionEntity")
     private LogEntity log;
 
     public Long getId() {
