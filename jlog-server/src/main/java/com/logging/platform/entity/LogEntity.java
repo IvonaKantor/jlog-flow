@@ -4,7 +4,7 @@ package com.logging.platform.entity;
 import com.logging.platform.models.LogDataLevel;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -15,14 +15,14 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "logs")
 public class LogEntity extends PanacheEntity {
 
+    @Column(nullable = false)
+    private Date timestamp;
+
+    private Integer sequence;
+
     private String loggerClassName;
 
     private String loggerName;
-
-    @Column(nullable = false)
-    private LocalDateTime timestamp;
-
-    private Integer sequence;
 
     @Enumerated
     @Column(nullable = false)
@@ -37,23 +37,45 @@ public class LogEntity extends PanacheEntity {
 
     private String ndc;
 
+    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<String, Object> mdc;
+
+    private String hostName;
+
     @Column(nullable = false)
     private String processName;
 
     @Column(nullable = false)
     private Integer processId;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "exception_id")
+    private ExceptionEntity exception;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
-    private ServiceEntity serviceEntity;
+    private ServiceEntity service;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exception_id")
-    private ExceptionEntity exceptionEntity;
+    private String serviceName;
 
-    @Column(columnDefinition = "jsonb")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> mdc;
+    private String serviceId;
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
 
     public String getLoggerClassName() {
         return loggerClassName;
@@ -69,22 +91,6 @@ public class LogEntity extends PanacheEntity {
 
     public void setLoggerName(String loggerName) {
         this.loggerName = loggerName;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
     }
 
     public LogDataLevel getLevel() {
@@ -127,6 +133,22 @@ public class LogEntity extends PanacheEntity {
         this.ndc = ndc;
     }
 
+    public Map<String, Object> getMdc() {
+        return mdc;
+    }
+
+    public void setMdc(Map<String, Object> mdc) {
+        this.mdc = mdc;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
     public String getProcessName() {
         return processName;
     }
@@ -143,27 +165,35 @@ public class LogEntity extends PanacheEntity {
         this.processId = processId;
     }
 
-    public ServiceEntity getServiceEntity() {
-        return serviceEntity;
+    public ExceptionEntity getException() {
+        return exception;
     }
 
-    public void setServiceEntity(ServiceEntity serviceEntity) {
-        this.serviceEntity = serviceEntity;
+    public void setException(ExceptionEntity exception) {
+        this.exception = exception;
     }
 
-    public ExceptionEntity getExceptionEntity() {
-        return exceptionEntity;
+    public ServiceEntity getService() {
+        return service;
     }
 
-    public void setExceptionEntity(ExceptionEntity exceptionId) {
-        this.exceptionEntity = exceptionId;
+    public void setService(ServiceEntity service) {
+        this.service = service;
     }
 
-    public Map<String, Object> getMdc() {
-        return mdc;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setMdc(Map<String, Object> mdc) {
-        this.mdc = mdc;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 }
