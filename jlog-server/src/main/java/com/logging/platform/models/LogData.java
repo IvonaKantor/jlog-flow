@@ -5,29 +5,21 @@ import java.util.Map;
 
 public class LogData {
     private Date timestamp;
-    private int sequence;
+    private Integer sequence;
     private String loggerClassName;
     private String loggerName;
     private LogDataLevel level;
     private String message;
     private String threadName;
-    private int threadId;
+    private Integer threadId;
     private String ndc;
     private Map<String, Object> mdc;
     private String hostName;
     private String processName;
-    private int processId;
+    private Integer processId;
     private LogDataException exception;
     private String serviceName;
     private String serviceId;
-
-    public Map<String, Object> getMdc() {
-        return mdc;
-    }
-
-    public void setMdc(Map<String, Object> mdc) {
-        this.mdc = mdc;
-    }
 
     public Date getTimestamp() {
         return timestamp;
@@ -37,11 +29,11 @@ public class LogData {
         this.timestamp = timestamp;
     }
 
-    public int getSequence() {
+    public Integer getSequence() {
         return sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(Integer sequence) {
         this.sequence = sequence;
     }
 
@@ -85,11 +77,11 @@ public class LogData {
         this.threadName = threadName;
     }
 
-    public int getThreadId() {
+    public Integer getThreadId() {
         return threadId;
     }
 
-    public void setThreadId(int threadId) {
+    public void setThreadId(Integer threadId) {
         this.threadId = threadId;
     }
 
@@ -99,6 +91,14 @@ public class LogData {
 
     public void setNdc(String ndc) {
         this.ndc = ndc;
+    }
+
+    public Map<String, Object> getMdc() {
+        return mdc;
+    }
+
+    public void setMdc(Map<String, Object> mdc) {
+        this.mdc = mdc;
     }
 
     public String getHostName() {
@@ -117,11 +117,11 @@ public class LogData {
         this.processName = processName;
     }
 
-    public int getProcessId() {
+    public Integer getProcessId() {
         return processId;
     }
 
-    public void setProcessId(int processId) {
+    public void setProcessId(Integer processId) {
         this.processId = processId;
     }
 
