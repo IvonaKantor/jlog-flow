@@ -2,45 +2,39 @@ package com.logging.platform.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
 @Table(name = "exceptions")
 public class ExceptionEntity extends PanacheEntity {
 
-    private int refIid;
+    private int refId;
 
     @Column(nullable = false)
     private String exceptionType;
 
     private String message;
 
-    @Column(updatable = false)
-    private LocalDateTime timestamp;
-
-    @OneToMany(mappedBy = "exceptionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "exceptionId", cascade = CascadeType.ALL)
     private List<ExceptionFrameEntity> frames = new ArrayList<>();
 
-    @OneToOne(mappedBy = "exceptionEntity")
+    @OneToOne(mappedBy = "exception")
     private LogEntity log;
 
-    public Long getId() {
-        return id;
+    @PrePersist
+    public void onPrePersist() {
+        log.setException(this);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public int getRefId() {
+        return refId;
     }
 
-    public int getRefIid() {
-        return refIid;
-    }
-
-    public void setRefIid(int refIid) {
-        this.refIid = refIid;
+    public void setRefId(int refId) {
+        this.refId = refId;
     }
 
     public String getExceptionType() {
@@ -57,14 +51,6 @@ public class ExceptionEntity extends PanacheEntity {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
     }
 
     public List<ExceptionFrameEntity> getFrames() {

@@ -7,7 +7,6 @@ public class LogDataException {
     private Long refId;
     private String exceptionType;
     private String message;
-
     private List<LogDataExceptionFrame> frames = new ArrayList<>();
 
     public LogDataException() {
