@@ -4,26 +4,23 @@ import jakarta.persistence.*;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "services")
-public class ServicesEntity extends PanacheEntity {
-
-    @Column(nullable = false, unique = true)
-    private String serviceName;
+public class ServiceEntity extends PanacheEntity {
 
     @Column(unique = true)
     private String serviceId;
 
-    @OneToMany(mappedBy = "serviceId", fetch = FetchType.LAZY)
+    @Column(nullable = false, unique = true)
+    private String serviceName;
+
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
     private List<LogEntity> logs;
 
-    public List<LogEntity> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(List<LogEntity> logs) {
-        this.logs = logs;
+    public static Optional<ServiceEntity> findByServiceId(String serviceId) {
+        return find("serviceId", serviceId).firstResultOptional();
     }
 
     public String getServiceId() {
@@ -42,11 +39,11 @@ public class ServicesEntity extends PanacheEntity {
         this.serviceName = serviceName;
     }
 
-    public Long getId() {
-        return id;
+    public List<LogEntity> getLogs() {
+        return logs;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLogs(List<LogEntity> logs) {
+        this.logs = logs;
     }
 }
