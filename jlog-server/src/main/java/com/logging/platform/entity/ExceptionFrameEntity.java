@@ -12,51 +12,42 @@ public class ExceptionFrameEntity extends PanacheEntity {
     private ExceptionEntity exceptionId;
 
     @Column(nullable = false)
-    private String className;
+    private String clazz;
 
     @Column(nullable = false)
-    private String methodName;
+    private String method;
 
-    private int lineNumber;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private int line;
 
     public ExceptionEntity getExceptionId() {
         return exceptionId;
     }
 
-    public void setException(ExceptionEntity exceptionId) {
+    public void setExceptionId(ExceptionEntity exceptionId) {
         this.exceptionId = exceptionId;
     }
 
-
-    public String getClassName() {
-        return className;
+    public String getClazz() {
+        return clazz;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClass(String clazz) {
+        this.clazz = clazz;
     }
 
-    public String getMethodName() {
-        return methodName;
+    public String getMethod() {
+        return method;
     }
 
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public int getLineNumber() {
-        return lineNumber;
+    public int getLine() {
+        return line;
     }
 
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
+    public void setLine(int line) {
+        this.line = line;
     }
 }
