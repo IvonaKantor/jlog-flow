@@ -27,7 +27,7 @@ public class LogListener {
 
         if (existServiceEntity.isPresent()) {
             logEntity.setService(existServiceEntity.get());
-            if(logEntity.getLevel().equals(LogDataLevel.ERROR)) {
+            if (logEntity.getLevel().equals(LogDataLevel.ERROR)) {
                 logEntity.getException().setLog(logEntity);
             }
             logEntity.persist();
