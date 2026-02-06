@@ -33,48 +33,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LogDto'
-        '500':
-          description: SErver error
-
-  /v1/log/{id}:
-    get:
-      summary: Get log by ID
-      description: Returns information about the log
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Log ID
-      responses:
-        '200':
-          description: Information about the log
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LogDto'
-        '404':
-          description: Log not found
-        '500':
-          description: Server error
-
-    delete:
-      summary: Delete the log by id
-      description: deletes the log
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-          description: log ID for deleting
-      responses:
-        '204':
-          description: Log successfully deleted
-        '404':
-          description: Log not found
+                  $ref: '#/components/schemas/LogData'
         '500':
           description: Server error
 
@@ -110,10 +69,6 @@ components:
         line:
           type: integer
           description: The line with exception
-
-    LogDto:
-      type: object
-
 
     ServicesDto:
       type: object
@@ -187,19 +142,3 @@ components:
           type: string
         serviceId:
           type: string
-
-  parameters:
-    LogFilter:
-      in: query
-      name: filter
-      description: Filter parameters
-      required: false
-      schema:
-        type: object
-        properties:
-          serviceId:
-            type: string
-          serviceName:
-            type: string
-          level:
-            $ref: '#/components/schemas/LogDataLevel'
