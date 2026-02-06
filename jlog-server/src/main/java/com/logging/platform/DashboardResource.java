@@ -1,11 +1,13 @@
 package com.logging.platform;
 
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.openapi.quarkus.openapi_yaml.model.LogData;
+
+import java.util.List;
 
 
 @Path("/v1/log")
@@ -14,19 +16,8 @@ import jakarta.ws.rs.core.MediaType;
 public class DashboardResource {
 
     @GET
-    public String getLogList() {
-        return "Log list";
-    }
-
-    @GET
-    @Path("{id}")
-    public String getLog(String id) {
-        return "log" + id;
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void deleteLog(String id) {
+    public List<LogData> getLogList() {
+        return List.of(); // mock
     }
 }
 
