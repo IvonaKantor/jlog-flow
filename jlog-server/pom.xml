@@ -48,7 +48,7 @@
         <dependency>
             <groupId>io.quarkiverse.openapi.generator</groupId>
             <artifactId>quarkus-openapi-generator</artifactId>
-            <version>2.14.0-lts</version>
+            <version>${io.quarkiverse.openapi.generator.version}</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
