@@ -26,11 +26,10 @@
         <maven.compiler.target>21</maven.compiler.target>
 
         <!-- dependency -->
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <jackson-databind.version>3.30.4</jackson-databind.version>
-        <quarkus.platform.version>3.30.3</quarkus.platform.version>
+        <quarkus.platform.version>3.31.2</quarkus.platform.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <io.quarkiverse.openapi.generator.version>2.14.0-lts</io.quarkiverse.openapi.generator.version>
+
         <!-- test dependency -->
 
         <!-- plugin -->
