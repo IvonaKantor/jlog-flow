@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: Logging Platform API
+  version: 1.0.0
+  description: API для управления логами и их анализа
+
+paths:
+  /v1/log:
+    get:
+      summary: Get a list of logs
+      description: Returns a list of logs
+      parameters:
+        - name: serviceId
+          in: query
+          schema:
+            type: string
+          description: Service ID
+        - name: serviceName
+          in: query
+          schema:
+            type: string
+          description: Service name
+        - name: level
+          in: query
+          schema:
+            $ref: '#/components/schemas/LogDataLevel'
+          description: Logging level for filtering
+      responses:
+        '200':
+          description: List of logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LogDto'
+        '500':
+          description: SErver error
+
+  /v1/log/{id}:
+    get:
+      summary: Get log by ID
+      description: Returns information about the log
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Log ID
+      responses:
+        '200':
+          description: Information about the log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogDto'
+        '404':
+          description: Log not found
+        '500':
+          description: Server error
+
+    delete:
+      summary: Delete the log by id
+      description: deletes the log
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: log ID for deleting
+      responses:
+        '204':
+          description: Log successfully deleted
+        '404':
+          description: Log not found
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    ExceptionDto:
+      type: object
+      properties:
+        refIid:
+          type: integer
+          description: Exception ID
+        exceptionType:
+          type: string
+          description: Exception type
+        message:
+          type: string
+          description: Exception message
+        frames:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExceptionFrameDto'
+          description: Exception frame
+
+    ExceptionFrameDto:
+      type: object
+      properties:
+        clazz:
+          type: string
+          description: The class with exception
+        method:
+          type: string
+          description: The method with exception
+        line:
+          type: integer
+          description: The line with exception
+
+    LogDto:
+      type: object
+
+
+    ServicesDto:
+      type: object
+      properties:
+        serviceId:
+          type: string
+          description: Service ID
+        serviceName:
+          type: string
+          description: Service name
+
+    LogDataLevel:
+      type: string
+      enum:
+        - INFO
+        - WARN
+        - ERROR
+      description: Log levels
+
+    LogDataException:
+      type: object
+      description: Exception type
+      properties:
+        refIid:
+          type: integer
+        exceptionType:
+          type: string
+        message:
+          type: string
+        frames:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExceptionFrameDto'
+
+    LogData:
+      type: object
+      description: incoming message skeleton :)
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        sequence:
+          type: integer
+        loggerClassName:
+          type: string
+        loggerName:
+          type: string
+        level:
+          $ref: '#/components/schemas/LogDataLevel'
+        message:
+          type: string
+        threadName:
+          type: string
+        threadId:
+          type: integer
+        ndc:
+          type: string
+        mdc:
+          type: object
+          additionalProperties:
+            type: object
+        hostName:
+          type: string
+        processName:
+          type: string
+        processId:
+          type: integer
+        exception:
+          $ref: '#/components/schemas/LogDataException'
+        serviceName:
+          type: string
+        serviceId:
+          type: string
+
+  parameters:
+    LogFilter:
+      in: query
+      name: filter
+      description: Filter parameters
+      required: false
+      schema:
+        type: object
+        properties:
+          serviceId:
+            type: string
+          serviceName:
+            type: string
+          level:
+            $ref: '#/components/schemas/LogDataLevel'
