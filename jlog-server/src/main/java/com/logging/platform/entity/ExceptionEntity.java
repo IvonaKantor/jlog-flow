@@ -27,6 +27,8 @@ public class ExceptionEntity extends PanacheEntity {
     @PrePersist
     public void onPrePersist() {
         log.setException(this);
+
+        frames.forEach(frame -> frame.setExceptionId(this));
     }
 
     public int getRefId() {
