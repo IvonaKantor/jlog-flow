@@ -5,7 +5,7 @@ import com.logging.platform.models.LogData;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "cdi")
-public interface LogDataMapper {
+public abstract class LogDataMapper {
 
-    LogEntity map(LogData source);
+    public abstract LogEntity map(LogData source);
 }
