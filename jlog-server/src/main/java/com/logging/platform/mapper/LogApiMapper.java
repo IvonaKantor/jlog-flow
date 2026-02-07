@@ -15,8 +15,6 @@ public abstract class LogApiMapper {
 
     public abstract List<LogData> map(List<LogEntity> source);
 
-    protected abstract LogData map(LogEntity source);
-
     protected OffsetDateTime map(Date source) {
         if (source == null) {
             return null;

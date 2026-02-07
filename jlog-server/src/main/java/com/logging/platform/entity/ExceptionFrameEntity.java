@@ -1,11 +1,14 @@
 package com.logging.platform.entity;
 
 import jakarta.persistence.*;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
 @Table(name = "exception_frames")
-public class ExceptionFrameEntity extends PanacheEntity {
+public class ExceptionFrameEntity {
+
+    @Id
+    @GeneratedValue
+    public Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exception_id")
@@ -18,6 +21,14 @@ public class ExceptionFrameEntity extends PanacheEntity {
     private String method;
 
     private int line;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public ExceptionEntity getExceptionId() {
         return exceptionId;

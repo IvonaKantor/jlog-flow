@@ -7,13 +7,16 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Map;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "logs")
-public class LogEntity extends PanacheEntity {
+public class LogEntity {
+
+    @Id
+    @GeneratedValue
+    public Long id;
 
     @Column(nullable = false)
     private Date timestamp;
@@ -49,17 +52,24 @@ public class LogEntity extends PanacheEntity {
     @Column(nullable = false)
     private Integer processId;
 
+    @Column(unique = true)
+    private String serviceId;
+
+    @Column(nullable = false, unique = true)
+    private String serviceName;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "exception_id")
     private ExceptionEntity exception;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id")
-    private ServiceEntity service;
 
-    private String serviceName;
+    public Long getId() {
+        return id;
+    }
 
-    private String serviceId;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Date getTimestamp() {
         return timestamp;
@@ -173,27 +183,21 @@ public class LogEntity extends PanacheEntity {
         this.exception = exception;
     }
 
-    public ServiceEntity getService() {
-        return service;
+    public String getServiceId() {
+        return serviceId;
     }
 
-    public void setService(ServiceEntity service) {
-        this.service = service;
+    public LogEntity setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+        return this;
     }
 
     public String getServiceName() {
         return serviceName;
     }
 
-    public void setServiceName(String serviceName) {
+    public LogEntity setServiceName(String serviceName) {
         this.serviceName = serviceName;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
+        return this;
     }
 }
