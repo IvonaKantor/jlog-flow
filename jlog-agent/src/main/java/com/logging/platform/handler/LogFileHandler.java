@@ -49,7 +49,7 @@ public class LogFileHandler implements Runnable {
                     processor.process(decodedLine);
                     lastPosition = raf.getFilePointer();
                 } else {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 }
             }
         } catch (IOException e) {
