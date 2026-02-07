@@ -86,6 +86,7 @@ components:
         - INFO
         - WARN
         - ERROR
+        - DEBUG
       description: Log levels
 
     LogDataException:
