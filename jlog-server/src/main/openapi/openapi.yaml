@@ -23,7 +23,7 @@ paths:
         - name: level
           in: query
           schema:
-            $ref: '#/components/schemas/LogDataLevel'
+            $ref: '#/components/schemas/LogLevel'
           description: Logging level for filtering
       responses:
         '200':
@@ -33,78 +33,27 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LogData'
+                  $ref: '#/components/schemas/PaginationDataLog'
         '500':
           description: Server error
 
 components:
   schemas:
-    ExceptionDto:
+    PaginationDataLog:
       type: object
+      description: Page wrapper
       properties:
-        refIid:
+        pageIndex:
           type: integer
-          description: Exception ID
-        exceptionType:
-          type: string
-          description: Exception type
-        message:
-          type: string
-          description: Exception message
-        frames:
+        pageSize:
+          type: integer
+        pageCount:
+          type: integer
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/ExceptionFrameDto'
-          description: Exception frame
-
-    ExceptionFrameDto:
-      type: object
-      properties:
-        clazz:
-          type: string
-          description: The class with exception
-        method:
-          type: string
-          description: The method with exception
-        line:
-          type: integer
-          description: The line with exception
-
-    ServicesDto:
-      type: object
-      properties:
-        serviceId:
-          type: string
-          description: Service ID
-        serviceName:
-          type: string
-          description: Service name
-
-    LogDataLevel:
-      type: string
-      enum:
-        - INFO
-        - WARN
-        - ERROR
-        - DEBUG
-      description: Log levels
-
-    LogDataException:
-      type: object
-      description: Exception type
-      properties:
-        refIid:
-          type: integer
-        exceptionType:
-          type: string
-        message:
-          type: string
-        frames:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExceptionFrameDto'
-
-    LogData:
+            $ref: '#/components/schemas/Log'
+    Log:
       type: object
       description: incoming message skeleton :)
       properties:
@@ -118,7 +67,7 @@ components:
         loggerName:
           type: string
         level:
-          $ref: '#/components/schemas/LogDataLevel'
+          $ref: '#/components/schemas/LogLevel'
         message:
           type: string
         threadName:
@@ -138,8 +87,42 @@ components:
         processId:
           type: integer
         exception:
-          $ref: '#/components/schemas/LogDataException'
+          $ref: '#/components/schemas/LogException'
         serviceName:
           type: string
         serviceId:
           type: string
+    LogLevel:
+      type: string
+      enum:
+        - INFO
+        - WARN
+        - ERROR
+        - DEBUG
+      description: Log levels
+    LogException:
+      type: object
+      description: Exception type
+      properties:
+        refIid:
+          type: integer
+        exceptionType:
+          type: string
+        message:
+          type: string
+        frames:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExceptionFrame'
+    ExceptionFrame:
+      type: object
+      properties:
+        clazz:
+          type: string
+          description: The class with exception
+        method:
+          type: string
+          description: The method with exception
+        line:
+          type: integer
+          description: The line with exception

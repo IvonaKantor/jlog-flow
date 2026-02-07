@@ -1,10 +1,10 @@
 package com.logging.platform.controller;
 
-import com.logging.platform.pagination.Pagination;
 import com.logging.platform.services.LogService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import org.openapi.quarkus.openapi_yaml.model.LogData;
+import org.openapi.quarkus.openapi_yaml.model.LogLevel;
+import org.openapi.quarkus.openapi_yaml.model.PaginationDataLog;
 
 import java.util.Set;
 
@@ -20,12 +20,14 @@ public class LogController {
     @GET
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
-    public Pagination<LogData> getLogList(
+    public PaginationDataLog getLogList(
             @QueryParam("serviceId") Set<String> serviceIds,
+            @QueryParam("serviceName") Set<String> serviceNames,
+            @QueryParam("level") LogLevel level,
             @QueryParam("pageIndex") @DefaultValue("0") int pageIndex,
             @QueryParam("pageSize") @DefaultValue("20") int pageSize
     ) {
-        return logService.getLogs(serviceIds, pageIndex, pageSize);
+        return logService.getLogs(serviceIds, serviceNames, level, pageIndex, pageSize);
     }
 
 }

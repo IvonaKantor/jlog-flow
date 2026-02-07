@@ -2,7 +2,7 @@ package com.logging.platform.mapper;
 
 import com.logging.platform.entity.LogEntity;
 import org.mapstruct.Mapper;
-import org.openapi.quarkus.openapi_yaml.model.LogData;
+import org.openapi.quarkus.openapi_yaml.model.Log;
 
 import java.time.OffsetDateTime;
 import java.util.Date;
@@ -13,7 +13,7 @@ import static java.time.ZoneOffset.UTC;
 @Mapper(componentModel = "cdi")
 public abstract class LogApiMapper {
 
-    public abstract List<LogData> map(List<LogEntity> source);
+    public abstract List<Log> map(List<LogEntity> source);
 
     protected OffsetDateTime map(Date source) {
         if (source == null) {
