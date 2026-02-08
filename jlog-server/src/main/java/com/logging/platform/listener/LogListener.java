@@ -1,4 +1,4 @@
-package com.logging.platform;
+package com.logging.platform.listener;
 
 import com.logging.platform.mapper.LogDataMapper;
 import com.logging.platform.models.LogData;
