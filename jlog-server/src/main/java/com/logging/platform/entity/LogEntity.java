@@ -40,8 +40,8 @@ public class LogEntity {
 
     private String ndc;
 
-    @Column(columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "json_v")
     private Map<String, Object> mdc;
 
     private String hostName;
