@@ -99,6 +99,7 @@ class LogListenerTest {
     }
 
     @Test
+    @Transactional
     void persistLogDataError() {
         logEmitter.send(logDataError);
 

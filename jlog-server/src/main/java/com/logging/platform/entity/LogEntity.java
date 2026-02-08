@@ -10,8 +10,10 @@ import java.util.Map;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import static java.util.Objects.nonNull;
+
 @Entity
-@Table(name = "logs")
+@Table(name = "log")
 public class LogEntity {
 
     @Id
@@ -61,7 +63,6 @@ public class LogEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "exception_id")
     private ExceptionEntity exception;
-
 
     public Long getId() {
         return id;

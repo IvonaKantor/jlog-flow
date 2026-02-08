@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "exceptions")
+@Table(name = "exception")
 public class ExceptionEntity {
 
     @Id
@@ -63,6 +63,7 @@ public class ExceptionEntity {
     }
 
     public void setFrames(List<ExceptionFrameEntity> frames) {
+        frames.forEach(frame -> frame.setExceptionId(this));
         this.frames = frames;
     }
 
