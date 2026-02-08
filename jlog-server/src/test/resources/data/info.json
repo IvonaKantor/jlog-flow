@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-02-07T02:41:36.6177816+01:00",
+  "sequence": 2070,
+  "loggerClassName": "org.slf4j.impl.Slf4jLogger",
+  "loggerName": "com.logging.platform.LogGenerator",
+  "level": "INFO",
+  "message": "Quarkus application starting. Initializing log generator.",
+  "threadName": "Quarkus Main Thread",
+  "threadId": 66,
+  "mdc": {},
+  "ndc": "",
+  "hostName": "laptop-1r0rnidf",
+  "processName": "C:\\Users\\user\\.jdks\\azul-25.0.2\\bin\\java.exe",
+  "processId": 27820,
+  "serviceName": "service-1",
+  "serviceId": "app-7865"
+}

@@ -10,7 +10,7 @@ public class ExceptionFrameEntity {
     @GeneratedValue
     public Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name = "exception_id")
     private ExceptionEntity exceptionId;
 

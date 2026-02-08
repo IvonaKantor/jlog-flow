@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-02-07T02:43:16.6169341+01:00",
+  "sequence": 2085,
+  "loggerClassName": "org.slf4j.impl.Slf4jLogger",
+  "loggerName": "com.logging.platform.LogGenerator",
+  "level": "ERROR",
+  "message": "test exception",
+  "threadName": "pool-8-thread-1",
+  "threadId": 75,
+  "mdc": {},
+  "ndc": "",
+  "hostName": "laptop-1r0rnidf",
+  "processName": "C:\\Users\\user\\.jdks\\azul-25.0.2\\bin\\java.exe",
+  "processId": 27820,
+  "exception": {
+    "refId": 1,
+    "exceptionType": "java.lang.RuntimeException",
+    "message": "test exception",
+    "frames": [
+      {
+        "class": "com.logging.platform.LogGenerator",
+        "method": "lambda$startGenerating$0",
+        "line": 41
+      },
+      {
+        "class": "java.util.concurrent.Executors$RunnableAdapter",
+        "method": "call",
+        "line": 545
+      },
+      {
+        "class": "java.util.concurrent.FutureTask",
+        "method": "runAndReset",
+        "line": 369
+      },
+      {
+        "class": "java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask",
+        "method": "run",
+        "line": 310
+      },
+      {
+        "class": "java.util.concurrent.ThreadPoolExecutor",
+        "method": "runWorker",
+        "line": 1090
+      },
+      {
+        "class": "java.util.concurrent.ThreadPoolExecutor$Worker",
+        "method": "run",
+        "line": 614
+      },
+      {
+        "class": "java.lang.Thread",
+        "method": "run",
+        "line": 1474
+      }
+    ]
+  },
+  "serviceName": "service-1",
+  "serviceId": "app-7865"
+}

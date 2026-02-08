@@ -23,15 +23,8 @@ public class ExceptionEntity {
     @OneToMany(mappedBy = "exceptionId", cascade = CascadeType.ALL)
     private List<ExceptionFrameEntity> frames = new ArrayList<>();
 
-    @OneToOne(mappedBy = "exception")
+    @OneToOne(mappedBy = "exception", cascade = CascadeType.ALL)
     private LogEntity log;
-
-    @PrePersist
-    public void onPrePersist() {
-        log.setException(this);
-
-        frames.forEach(frame -> frame.setExceptionId(this));
-    }
 
     public Long getId() {
         return id;
