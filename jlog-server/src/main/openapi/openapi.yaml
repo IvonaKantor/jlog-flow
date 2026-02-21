@@ -44,6 +44,7 @@ components:
       description: Page wrapper
       properties:
         pageIndex:
+
           type: integer
         pageSize:
           type: integer
