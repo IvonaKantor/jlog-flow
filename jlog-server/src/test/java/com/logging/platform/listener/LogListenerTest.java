@@ -35,10 +35,10 @@ class LogListenerTest {
 
     @Inject
     @Channel("logs")
-    private Emitter<LogData> logEmitter;
+    Emitter<LogData> logEmitter;
 
     @Inject
-    private LogEntityRepository logEntityRepository;
+    LogEntityRepository logEntityRepository;
 
     @InjectSpy
     private LogListener logListenerSpy;
@@ -47,7 +47,7 @@ class LogListenerTest {
     private LogData logDataError;
 
     @Inject
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -130,5 +130,4 @@ class LogListenerTest {
                     assertNotEquals(0, frame.getLine());
                 });
     }
-
 }
