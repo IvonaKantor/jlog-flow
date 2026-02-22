@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 @Entity
-@Table(name = "exceptions")
-public class ExceptionEntity extends PanacheEntity {
+@Table(name = "exception")
+public class ExceptionEntity {
+
+    @Id
+    @GeneratedValue
+    public Long id;
 
     private int refId;
 
@@ -21,12 +23,15 @@ public class ExceptionEntity extends PanacheEntity {
     @OneToMany(mappedBy = "exceptionId", cascade = CascadeType.ALL)
     private List<ExceptionFrameEntity> frames = new ArrayList<>();
 
-    @OneToOne(mappedBy = "exception")
+    @OneToOne(mappedBy = "exception", cascade = CascadeType.ALL)
     private LogEntity log;
 
-    @PrePersist
-    public void onPrePersist() {
-        log.setException(this);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getRefId() {
@@ -58,6 +63,7 @@ public class ExceptionEntity extends PanacheEntity {
     }
 
     public void setFrames(List<ExceptionFrameEntity> frames) {
+        frames.forEach(frame -> frame.setExceptionId(this));
         this.frames = frames;
     }
 

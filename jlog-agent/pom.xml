@@ -28,6 +28,8 @@
             <artifactId>kafka-clients</artifactId>
             <version>${kafka-clients.version}</version>
         </dependency>
+<<<<<<< HEAD
+=======
 
         <!-- test dependency -->
 
@@ -50,6 +52,7 @@
             <scope>test</scope>
         </dependency>
 
+>>>>>>> main
     </dependencies>
 
 </project>
