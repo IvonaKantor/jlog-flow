@@ -24,8 +24,6 @@ paths:
           in: query
           schema:
 
-            $ref: '#/components/schemas/LogLevel'
-
             $ref: '#/components/schemas/LogDataLevel'
 
           description: Logging level for filtering
@@ -37,8 +35,6 @@ paths:
               schema:
                 type: array
                 items:
-
-                  $ref: '#/components/schemas/PaginationDataLog'
 
                   $ref: '#/components/schemas/LogData'
 
@@ -64,6 +60,10 @@ components:
           items:
             $ref: '#/components/schemas/Log'
     Log:
+      type: object
+      properties:
+        logData:
+          $ref: '#/components/schemas/LogData'
 
     ExceptionDto:
       type: object
@@ -144,8 +144,6 @@ components:
         loggerName:
           type: string
         level:
-
-          $ref: '#/components/schemas/LogLevel'
 
           $ref: '#/components/schemas/LogDataLevel'
 
