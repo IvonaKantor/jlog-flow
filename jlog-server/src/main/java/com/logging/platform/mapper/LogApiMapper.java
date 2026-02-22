@@ -9,8 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 import static java.time.ZoneOffset.UTC;
+import static org.mapstruct.MappingConstants.ComponentModel.CDI;
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = CDI)
 public abstract class LogApiMapper {
 
     public abstract List<Log> map(List<LogEntity> source);
