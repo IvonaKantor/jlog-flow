@@ -10,7 +10,7 @@ import org.openapi.quarkus.openapi_yaml.model.LogData;
 import java.util.List;
 
 
-@Path("/v1/log")
+@Path("/v1/dashboard/log")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class DashboardResource {
