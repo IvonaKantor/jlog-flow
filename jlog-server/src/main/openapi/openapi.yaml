@@ -105,7 +105,7 @@ components:
       type: object
       description: Exception type
       properties:
-        refId:
+        refIid:
           type: integer
         exceptionType:
           type: string
