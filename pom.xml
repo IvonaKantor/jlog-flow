@@ -51,13 +51,10 @@
         </dependencies>
     </dependencyManagement>
 
-<<<<<<< HEAD
-=======
     <dependencies>
 
     </dependencies>
 
->>>>>>> main
     <build>
         <plugins>
             <plugin>

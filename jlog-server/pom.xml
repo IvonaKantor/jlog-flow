@@ -18,13 +18,10 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-<<<<<<< HEAD
             <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-=======
->>>>>>> main
             <artifactId>quarkus-messaging-kafka</artifactId>
         </dependency>
         <dependency>
@@ -57,22 +54,19 @@
             <artifactId>quarkus-openapi-generator</artifactId>
             <version>${io.quarkiverse.openapi.generator.version}</version>
         </dependency>
-<<<<<<< HEAD
+
         <!-- oidc -->
 <!--        <dependency>-->
 <!--            <groupId>io.quarkus</groupId>-->
 <!--            <artifactId>quarkus-oidc</artifactId>-->
 <!--        </dependency>-->
-=======
->>>>>>> main
-
         <!-- test dependency -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-<<<<<<< HEAD
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit-mockito</artifactId>
@@ -97,8 +91,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
-=======
->>>>>>> main
+
     </dependencies>
 
     <build>
