@@ -23,11 +23,11 @@ paths:
         - name: level
           in: query
           schema:
-<<<<<<< HEAD
+
             $ref: '#/components/schemas/LogLevel'
-=======
+
             $ref: '#/components/schemas/LogDataLevel'
->>>>>>> main
+
           description: Logging level for filtering
       responses:
         '200':
@@ -37,17 +37,17 @@ paths:
               schema:
                 type: array
                 items:
-<<<<<<< HEAD
+
                   $ref: '#/components/schemas/PaginationDataLog'
-=======
+
                   $ref: '#/components/schemas/LogData'
->>>>>>> main
+
         '500':
           description: Server error
 
 components:
   schemas:
-<<<<<<< HEAD
+
     PaginationDataLog:
       type: object
       description: Page wrapper
@@ -64,7 +64,7 @@ components:
           items:
             $ref: '#/components/schemas/Log'
     Log:
-=======
+
     ExceptionDto:
       type: object
       properties:
@@ -130,7 +130,7 @@ components:
             $ref: '#/components/schemas/ExceptionFrameDto'
 
     LogData:
->>>>>>> main
+
       type: object
       description: incoming message skeleton :)
       properties:
@@ -144,11 +144,11 @@ components:
         loggerName:
           type: string
         level:
-<<<<<<< HEAD
+
           $ref: '#/components/schemas/LogLevel'
-=======
+
           $ref: '#/components/schemas/LogDataLevel'
->>>>>>> main
+
         message:
           type: string
         threadName:
@@ -168,7 +168,7 @@ components:
         processId:
           type: integer
         exception:
-<<<<<<< HEAD
+
           $ref: '#/components/schemas/LogException'
         serviceName:
           type: string
@@ -208,10 +208,9 @@ components:
         line:
           type: integer
           description: The line with exception
-=======
+
           $ref: '#/components/schemas/LogDataException'
         serviceName:
           type: string
         serviceId:
           type: string
->>>>>>> main
