@@ -13,7 +13,11 @@ import org.hibernate.type.SqlTypes;
 import static java.util.Objects.nonNull;
 
 @Entity
-@Table(name = "log")
+@Table(name = "log", indexes = {
+        @Index(columnList = "serviceName"),
+        @Index(columnList = "serviceId"),
+        @Index(columnList = "level")
+})
 public class LogEntity {
 
     @Id
@@ -54,10 +58,10 @@ public class LogEntity {
     @Column(nullable = false)
     private Integer processId;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String serviceId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String serviceName;
 
     @OneToOne(cascade = CascadeType.ALL)
