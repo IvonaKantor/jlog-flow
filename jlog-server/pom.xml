@@ -54,19 +54,18 @@
             <artifactId>quarkus-openapi-generator</artifactId>
             <version>${io.quarkiverse.openapi.generator.version}</version>
         </dependency>
-
         <!-- oidc -->
 <!--        <dependency>-->
 <!--            <groupId>io.quarkus</groupId>-->
 <!--            <artifactId>quarkus-oidc</artifactId>-->
 <!--        </dependency>-->
+
         <!-- test dependency -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit-mockito</artifactId>
@@ -91,7 +90,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

@@ -214,6 +214,30 @@ public class LogControllerTest {
     }
 
     @Test
+    void testGetLogsByMultipleLevels() throws Exception {
+        logEmitter.send(createLogDataInfo(new ServiceData(SERVICE_ID_1, SERVICE_NAME_1)));
+        logEmitter.send(createLogDataError(new ServiceData(SERVICE_ID_2, SERVICE_NAME_2)));
+        logEmitter.send(createLogDataInfo(new ServiceData(SERVICE_ID_3, SERVICE_NAME_3)));
+
+        await().until(() -> findFirstLog(logEntityRepository).isPresent());
+
+        final var response = given()
+                .queryParam("level", LogDataLevel.INFO, LogDataLevel.ERROR)
+                .when()
+                .get("/v1/log")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(PaginationDataLog.class);
+
+        assertFalse(response.getItems().isEmpty());
+        response.getItems().forEach(log -> {
+            assertTrue(log.getLevel() == INFO || log.getLevel() == ERROR,
+                    "The log level has come: " + log.getLevel());
+        });
+    }
+
+    @Test
     void testNoLogsFoundForValidLevel() throws Exception {
         logEmitter.send(createLogDataInfo(new ServiceData(SERVICE_ID_1, SERVICE_NAME_1)));
 
@@ -331,6 +355,7 @@ public class LogControllerTest {
                 .statusCode(400)
                 .body(containsString("Page size must be less than 500"));
     }
+
 
 
 }
