@@ -26,7 +26,8 @@ public class LogService {
             final int pageSize
     ) {
         final var query = logEntityRepository.find(serviceIds, serviceNames, level);
-        final var logs = logApiMapper.map(query.page(pageIndex, pageSize).list());
+        final var list = query.page(pageIndex, pageSize).list();
+        final var logs = logApiMapper.map(list);
 
         final var pagination = new PaginationDataLog();
 
