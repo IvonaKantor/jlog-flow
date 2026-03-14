@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-03-12T18:32:18.2727238+01:00",
+  "sequence": 2130,
+  "loggerClassName": "org.slf4j.impl.Slf4jLogger",
+  "loggerName": "com.logging.platform.LogGenerator",
+  "level": "WARN",
+  "message": "warning message",
+  "threadName": "pool-8-thread-1",
+  "threadId": 55,
+  "mdc": {},
+  "ndc": "",
+  "hostName": "hp-840-g5",
+  "processName": "C:\\Users\\iwona\\.jdks\\temurin-17.0.16\\bin\\java.exe",
+  "processId": 6560
+}
