@@ -4,11 +4,14 @@ import com.logging.platform.services.LogService;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.openapi.quarkus.openapi_yaml.model.LogLevel;
 import org.openapi.quarkus.openapi_yaml.model.PaginationDataLog;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -31,5 +34,27 @@ public class LogController {
             @QueryParam("pageSize") @DefaultValue("20") @Min(value = 0, message = "Page size must be >= 1") @Max(value = 500, message = "Page size must be less than 500") int pageSize
     ) {
         return logService.getLogs(serviceIds, serviceNames, level, pageIndex, pageSize);
+    }
+
+    @GET
+    @Path("/services")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getServices() {
+        List<String> services = new ArrayList<>();
+        services.add("service-1");
+        services.add("service-2");
+
+        return Response.ok(services).build();
+    }
+
+    @GET
+    @Path("/hosts")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHosts() {
+        List<String> hosts = new ArrayList<>();
+        hosts.add("laptop-1r0rnidf");
+        hosts.add("hp-840-g5");
+
+        return Response.ok(hosts).build();
     }
 }
