@@ -29,11 +29,35 @@ public class LogController {
     public PaginationDataLog getLogList(
             @QueryParam("serviceId") Set<String> serviceIds,
             @QueryParam("serviceName") Set<String> serviceNames,
+            @QueryParam("hostName") String hostName,
+            @QueryParam("fromDate") String fromDate,
+            @QueryParam("toDate") String toDate,
             @QueryParam("level") LogLevel level,
             @QueryParam("pageIndex") @DefaultValue("0") @Min(value = 0, message = "Page index must be >= 0") int pageIndex,
             @QueryParam("pageSize") @DefaultValue("20") @Min(value = 0, message = "Page size must be >= 1") @Max(value = 500, message = "Page size must be less than 500") int pageSize
     ) {
-        return logService.getLogs(serviceIds, serviceNames, level, pageIndex, pageSize);
+        return logService.getLogs(serviceIds, serviceNames, hostName, parseDate(fromDate), parseDate(toDate), level, pageIndex, pageSize);
+    }
+
+    private java.util.Date parseDate(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+
+        try {
+            java.time.Instant instant;
+
+            try {
+                instant = java.time.OffsetDateTime.parse(value).toInstant();
+            } catch (java.time.format.DateTimeParseException e) {
+                java.time.LocalDateTime localDateTime = java.time.LocalDateTime.parse(value);
+                instant = localDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant();
+            }
+
+            return java.util.Date.from(instant);
+        } catch (java.time.format.DateTimeParseException e) {
+            throw new BadRequestException("Invalid date format", e);
+        }
     }
 
     @GET
