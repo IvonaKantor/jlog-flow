@@ -24,7 +24,6 @@ public class LogGenerator {
         startGenerating();
     }
 
-
     void onStop(@Observes ShutdownEvent ev) {
         log.info("Quarkus application shutting down. Stopping log generator.");
         stopGenerating();
@@ -39,7 +38,12 @@ public class LogGenerator {
 
                 if(counter % 10 == 0) {
                     log.error("test exception", new RuntimeException("test exception"));
-                }else{
+                }else if(counter % 5 == 0) {
+                    log.warn("warning message");
+                }else if(counter % 13 == 0) {
+                    log.debug("Debug information. System time:{}", System.currentTimeMillis());
+                }
+                else{
                     log.info(logMessage);
                 }
                 counter++;
