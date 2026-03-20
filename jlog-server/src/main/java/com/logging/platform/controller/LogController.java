@@ -45,15 +45,7 @@ public class LogController {
         }
 
         try {
-            java.time.Instant instant;
-
-            try {
-                instant = java.time.OffsetDateTime.parse(value).toInstant();
-            } catch (java.time.format.DateTimeParseException e) {
-                java.time.LocalDateTime localDateTime = java.time.LocalDateTime.parse(value);
-                instant = localDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant();
-            }
-
+            java.time.Instant instant = java.time.Instant.parse(value);
             return java.util.Date.from(instant);
         } catch (java.time.format.DateTimeParseException e) {
             throw new BadRequestException("Invalid date format", e);
