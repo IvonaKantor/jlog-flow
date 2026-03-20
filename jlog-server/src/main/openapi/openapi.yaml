@@ -20,6 +20,23 @@ paths:
           schema:
             type: string
           description: Service name
+        - name: hostName
+          in: query
+          schema:
+            type: string
+          description: Host name (exact match)
+        - name: fromDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Start timestamp (inclusive) in ISO 8601
+        - name: toDate
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: End timestamp (inclusive) in ISO 8601
         - name: level
           in: query
           schema:
