@@ -41,7 +41,7 @@ public class LogGenerator {
                     log.error("test exception", new RuntimeException("test exception"));
                 }else if(counter % 5 == 0) {
                     log.warn("warning message");
-                }else if(counter % 13 == 0) {
+                }else if(counter % 14 == 0) {
                     log.debug("Debug information. System time:{}", System.currentTimeMillis());
                }
                 else{
