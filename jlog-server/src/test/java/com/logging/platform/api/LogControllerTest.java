@@ -165,6 +165,35 @@ public class LogControllerTest {
     }
 
     @Test
+    void testGetLogsByHostName() throws Exception {
+        final var first = createLogDataInfo(new ServiceData(SERVICE_ID_1, SERVICE_NAME_1));
+        first.setHostName("laptop-1r0rnidf");
+
+        final var second = createLogDataInfo(new ServiceData(SERVICE_ID_2, SERVICE_NAME_2));
+        second.setHostName("hp-840-g5");
+
+        logEmitter.send(first);
+        logEmitter.send(second);
+
+        await().until(() -> findFirstLog(logEntityRepository).isPresent());
+
+        final var response = given()
+                .queryParam("hostName", "laptop-1r0rnidf")
+                .when()
+                .get("/v1/log")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract()
+                .as(PaginationDataLog.class);
+
+        assertNotNull(response.getItems());
+        assertEquals(1, response.getItems().size());
+        assertEquals(1, response.getPageCount());
+        assertEquals("laptop-1r0rnidf", response.getItems().get(0).getHostName());
+    }
+
+    @Test
     void testGetLogsByServiceNames() throws Exception {
         logEmitter.send(createLogDataInfo(new ServiceData(SERVICE_ID_1, SERVICE_NAME_1)));
         logEmitter.send(createLogDataInfo(new ServiceData(SERVICE_ID_2, SERVICE_NAME_2)));
