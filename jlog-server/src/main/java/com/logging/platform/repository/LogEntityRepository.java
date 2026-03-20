@@ -16,6 +16,9 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
     public PanacheQuery<LogEntity> find(
             final Set<String> serviceIds,
             final Set<String> serviceNames,
+            final String hostName,
+            final java.util.Date fromDate,
+            final java.util.Date toDate,
             final LogLevel level
     ) {
         final var query = new StringBuilder();
@@ -31,6 +34,27 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
                     .append(" serviceName in :serviceNames");
 
             params.and("serviceNames", serviceNames);
+        }
+
+        if (hostName != null && !hostName.isBlank()) {
+            query.append(query.isEmpty() ? "" : " and")
+                    .append(" hostName = :hostName");
+
+            params.and("hostName", hostName);
+        }
+
+        if (fromDate != null) {
+            query.append(query.isEmpty() ? "" : " and")
+                    .append(" timestamp >= :fromDate");
+
+            params.and("fromDate", fromDate);
+        }
+
+        if (toDate != null) {
+            query.append(query.isEmpty() ? "" : " and")
+                    .append(" timestamp <= :toDate");
+
+            params.and("toDate", toDate);
         }
 
         if (level != null) {
