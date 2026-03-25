@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import org.openapi.quarkus.openapi_yaml.model.LogLevel;
 import org.openapi.quarkus.openapi_yaml.model.PaginationDataLog;
 
+import java.util.Date;
 import java.util.Set;
 
 @ApplicationScoped
@@ -22,8 +23,8 @@ public class LogService {
             final Set<String> serviceIds,
             final Set<String> serviceNames,
             final String hostName,
-            final java.util.Date fromDate,
-            final java.util.Date toDate,
+            final Date fromDate,
+            final Date toDate,
             final LogLevel level,
             final int pageIndex,
             final int pageSize
