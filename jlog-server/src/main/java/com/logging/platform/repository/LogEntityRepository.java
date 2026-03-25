@@ -5,9 +5,11 @@ import com.logging.platform.models.LogDataLevel;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Parameters;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.openapi.quarkus.openapi_yaml.model.LogLevel;
 
+import java.util.Date;
 import java.util.Set;
 
 @ApplicationScoped
@@ -17,8 +19,8 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
             final Set<String> serviceIds,
             final Set<String> serviceNames,
             final String hostName,
-            final java.util.Date fromDate,
-            final java.util.Date toDate,
+            final Date fromDate,
+            final Date toDate,
             final LogLevel level
     ) {
         final var query = new StringBuilder();
@@ -64,6 +66,6 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
             params.and("level", LogDataLevel.valueOf(level.toString()));
         }
 
-        return find(query.toString(), params);
+        return find(query.toString(), Sort.by("timestamp", Sort.Direction.Descending), params);
     }
 }
