@@ -21,11 +21,14 @@ public class LogService {
     public PaginationDataLog getLogs(
             final Set<String> serviceIds,
             final Set<String> serviceNames,
+            final String hostName,
+            final java.util.Date fromDate,
+            final java.util.Date toDate,
             final LogLevel level,
             final int pageIndex,
             final int pageSize
     ) {
-        final var query = logEntityRepository.find(serviceIds, serviceNames, level);
+        final var query = logEntityRepository.find(serviceIds, serviceNames, hostName, fromDate, toDate, level);
         final var list = query.page(pageIndex, pageSize).list();
         final var logs = logApiMapper.map(list);
 
