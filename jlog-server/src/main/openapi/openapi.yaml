@@ -30,13 +30,13 @@ paths:
           schema:
             type: string
             format: date-time
-          description: Start timestamp (inclusive) in ISO 8601
+          description: Start timestamp (inclusive), ISO 8601 date or date-time
         - name: toDate
           in: query
           schema:
             type: string
             format: date-time
-          description: End timestamp (inclusive) in ISO 8601
+          description: End timestamp (inclusive), ISO 8601 date or date-time
         - name: level
           in: query
           schema:
@@ -51,6 +51,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PaginationDataLog'
+        '500':
+          description: Server error
+
+  /v1/log/search:
+    post:
+      summary: Search logs with filters
+      description: Returns logs filtered by payload values including date range
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogSearchRequest'
+      responses:
+        '200':
+          description: Filtered list of logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationDataLog'
+        '400':
+          description: Invalid request payload
         '500':
           description: Server error
 
@@ -144,3 +166,36 @@ components:
         line:
           type: integer
           description: The line with exception
+
+    LogSearchRequest:
+      type: object
+      properties:
+        serviceIds:
+          type: array
+          items:
+            type: string
+        serviceNames:
+          type: array
+          items:
+            type: string
+        hostName:
+          type: string
+        fromDate:
+          type: string
+          format: date-time
+          description: Start timestamp (inclusive), ISO-8601 date or date-time
+        toDate:
+          type: string
+          format: date-time
+          description: End timestamp (inclusive), ISO-8601 date or date-time
+        level:
+          $ref: '#/components/schemas/LogLevel'
+        pageIndex:
+          type: integer
+          minimum: 0
+          default: 0
+        pageSize:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 20
