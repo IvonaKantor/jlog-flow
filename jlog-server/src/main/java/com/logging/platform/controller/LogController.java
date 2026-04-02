@@ -30,6 +30,8 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 @Path("/v1/log")
 public class LogController {
 
+    private static final int MAX_SEARCH_LENGTH = 50;
+
     @Inject
     LogService logService;
 
@@ -43,10 +45,12 @@ public class LogController {
             @QueryParam("fromDate") String fromDate,
             @QueryParam("toDate") String toDate,
             @QueryParam("level") LogLevel level,
+            @QueryParam("search") String search,
             @QueryParam("pageIndex") @DefaultValue("0") @Min(value = 0, message = "Page index must be >= 0") int pageIndex,
             @QueryParam("pageSize") @DefaultValue("20") @Min(value = 0, message = "Page size must be >= 1") @Max(value = 500, message = "Page size must be less than 500") int pageSize
     ) {
         return logService.getLogs(
+                normalizeSearch(search),
                 normalizeSet(serviceIds),
                 normalizeSet(serviceNames),
                 hostName,
@@ -58,17 +62,18 @@ public class LogController {
         );
     }
 
-            @POST
-            @Path("/search")
-            @Produces(APPLICATION_JSON)
-            @Consumes(APPLICATION_JSON)
-            public PaginationDataLog searchLogs(LogSearchRequest request) {
-            final var payload = request == null ? new LogSearchRequest() : request;
+    @POST
+    @Path("/search")
+    @Produces(APPLICATION_JSON)
+    @Consumes(APPLICATION_JSON)
+    public PaginationDataLog searchLogs(LogSearchRequest request) {
+        final var payload = request == null ? new LogSearchRequest() : request;
 
-            final var pageIndex = normalizePageIndex(payload.getPageIndex());
-            final var pageSize = normalizePageSize(payload.getPageSize());
+        final var pageIndex = normalizePageIndex(payload.getPageIndex());
+        final var pageSize = normalizePageSize(payload.getPageSize());
 
-            return logService.getLogs(
+        return logService.getLogs(
+                normalizeSearch(payload.getSearch()),
                 normalizeSet(payload.getServiceIds()),
                 normalizeSet(payload.getServiceNames()),
                 payload.getHostName(),
@@ -77,8 +82,8 @@ public class LogController {
                 payload.getLevel(),
                 pageIndex,
                 pageSize
-            );
-            }
+        );
+    }
 
     private Date parseDate(String value, boolean endOfDayForDateOnly) {
         if (value == null || value.isBlank()) {
@@ -137,6 +142,23 @@ public class LogController {
         }
 
         return pageSize;
+    }
+
+    private String normalizeSearch(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        final var search = value.trim();
+        if (search.isEmpty()) {
+            return null;
+        }
+
+        if (search.length() > MAX_SEARCH_LENGTH) {
+            throw new BadRequestException("Search length must be <= " + MAX_SEARCH_LENGTH);
+        }
+
+        return search;
     }
 
     private Set<String> normalizeSet(Set<String> input) {
