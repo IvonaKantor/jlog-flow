@@ -42,6 +42,12 @@ paths:
           schema:
             $ref: '#/components/schemas/LogLevel'
           description: Logging level for filtering
+        - name: search
+          in: query
+          schema:
+            type: string
+            maxLength: 50
+          description: Free-text search across log keywords
       responses:
         '200':
           description: List of logs
@@ -89,6 +95,9 @@ components:
           type: integer
         pageCount:
           type: integer
+        totalCount:
+          type: integer
+          format: int64
         items:
           type: array
           items:
@@ -170,6 +179,9 @@ components:
     LogSearchRequest:
       type: object
       properties:
+        search:
+          type: string
+          maxLength: 50
         serviceIds:
           type: array
           items:
