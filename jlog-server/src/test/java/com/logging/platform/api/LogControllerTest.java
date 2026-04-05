@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.openapi.quarkus.openapi_yaml.model.LogLevel;
 import org.openapi.quarkus.openapi_yaml.model.PaginationDataLog;
 
+import java.util.Map;
 import java.util.concurrent.CompletionStage;
 
 import static com.logging.platform.TestDataHelper.*;
@@ -384,7 +385,4 @@ public class LogControllerTest {
                 .statusCode(400)
                 .body(containsString("Page size must be less than 500"));
     }
-
-
-
 }
