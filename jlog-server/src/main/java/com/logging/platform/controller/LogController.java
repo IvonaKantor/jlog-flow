@@ -30,7 +30,7 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 @Path("/v1/log")
 public class LogController {
 
-    private static final int MAX_SEARCH_LENGTH = 50;
+    private static final int MAX_SEARCH_LENGTH = 200;
 
     @Inject
     LogService logService;
@@ -168,12 +168,8 @@ public class LogController {
     @GET
     @Path("/services")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getServices() {
-        List<String> services = new ArrayList<>();
-        services.add("service-1");
-        services.add("service-2");
-
-        return Response.ok(services).build();
+    public List<String> getServices() {
+        return logService.getServiceNames();
     }
 
     @GET
