@@ -46,8 +46,8 @@ paths:
           in: query
           schema:
             type: string
-            maxLength: 50
-          description: Free-text search across log keywords
+            maxLength: 200
+          description: Free-text search across log fields
       responses:
         '200':
           description: List of logs
@@ -181,7 +181,7 @@ components:
       properties:
         search:
           type: string
-          maxLength: 50
+          maxLength: 200
         serviceIds:
           type: array
           items:
