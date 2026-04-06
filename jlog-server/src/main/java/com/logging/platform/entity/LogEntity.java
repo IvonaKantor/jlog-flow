@@ -16,7 +16,9 @@ import static java.util.Objects.nonNull;
 @Table(name = "log", indexes = {
         @Index(columnList = "serviceName"),
         @Index(columnList = "serviceId"),
-        @Index(columnList = "level")
+    @Index(columnList = "hostName"),
+    @Index(columnList = "level"),
+    @Index(columnList = "timestamp")
 })
 public class LogEntity {
 
