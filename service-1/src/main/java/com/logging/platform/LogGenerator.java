@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -34,6 +35,7 @@ public class LogGenerator {
 
         final Runnable logTask = () -> {
             try {
+                MDC.put("log-generator-id", String.valueOf(++counter));
                 final String logMessage = "Generated log entry: New application event occurred at " + System.currentTimeMillis();
 
                 if(counter % 10 == 0) {
@@ -47,8 +49,10 @@ public class LogGenerator {
                     log.info(logMessage);
                 }
                 counter++;
+                MDC.clear();
             } catch (Exception e) {
                 log.error("Error generating log.", e);
+                MDC.clear();
             }
         };
 
