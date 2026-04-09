@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class LogSearchRequest {
 
+    private String search;
     private Set<String> serviceIds;
     private Set<String> serviceNames;
     private String hostName;
@@ -14,6 +15,14 @@ public class LogSearchRequest {
     private LogLevel level;
     private Integer pageIndex;
     private Integer pageSize;
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
 
     public Set<String> getServiceIds() {
         return serviceIds;
