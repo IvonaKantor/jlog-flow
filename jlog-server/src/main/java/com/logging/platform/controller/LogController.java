@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import org.openapi.quarkus.openapi_yaml.model.LogLevel;
 import org.openapi.quarkus.openapi_yaml.model.PaginationDataLog;
 
@@ -18,7 +17,6 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -175,11 +173,7 @@ public class LogController {
     @GET
     @Path("/hosts")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getHosts() {
-        List<String> hosts = new ArrayList<>();
-        hosts.add("laptop-1r0rnidf");
-        hosts.add("hp-840-g5");
-
-        return Response.ok(hosts).build();
+    public List<String> getHosts() {
+        return logService.getHostNames();
     }
 }
