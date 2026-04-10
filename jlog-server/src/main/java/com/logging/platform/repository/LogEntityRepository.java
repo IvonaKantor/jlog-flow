@@ -10,12 +10,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.openapi.quarkus.openapi_yaml.model.LogLevel;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @ApplicationScoped
 public class LogEntityRepository implements PanacheRepository<LogEntity> {
 
     public PanacheQuery<LogEntity> find(
+            final String search,
             final Set<String> serviceIds,
             final Set<String> serviceNames,
             final String hostName,
@@ -26,8 +28,11 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
         final var query = new StringBuilder();
         final var params = new Parameters();
 
+
+
         if (!serviceIds.isEmpty()) {
-            query.append("serviceId in :serviceIds");
+            query.append(query.isEmpty() ? "" : " and")
+                    .append(" serviceId in :serviceIds");
             params.and("serviceIds", serviceIds);
         }
 
@@ -67,5 +72,17 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
         }
 
         return find(query.toString(), Sort.by("timestamp", Sort.Direction.Descending), params);
+    }
+
+    public List<String> getServiceNames() {
+        return getEntityManager()
+                .createQuery("select distinct l.serviceName from LogEntity l where l.serviceName is not null and l.serviceName <> '' order by l.serviceName", String.class)
+                .getResultList();
+    }
+
+    public List<String> getHostNames() {
+        return getEntityManager()
+                .createQuery("select distinct l.hostName from LogEntity l where l.hostName is not null and l.hostName <> '' order by l.hostName", String.class)
+                .getResultList();
     }
 }
