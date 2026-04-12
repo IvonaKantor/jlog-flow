@@ -29,7 +29,6 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
         final var params = new Parameters();
 
 
-
         if (!serviceIds.isEmpty()) {
             query.append(query.isEmpty() ? "" : " and")
                     .append(" serviceId in :serviceIds");
