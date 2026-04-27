@@ -15,7 +15,7 @@ import java.util.Set;
 public class LogService {
 
     @Inject
-    private LogApiMapper  logApiMapper;
+    private LogApiMapper logApiMapper;
 
     @Inject
     private LogEntityRepository logEntityRepository;
