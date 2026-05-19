@@ -70,6 +70,10 @@ public class LogEntityRepository implements PanacheRepository<LogEntity> {
             params.and("level", LogDataLevel.valueOf(level.toString()));
         }
 
+        if (query.isEmpty()) {
+            return findAll(Sort.by("timestamp", Sort.Direction.Descending));
+        }
+
         return find(query.toString(), Sort.by("timestamp", Sort.Direction.Descending), params);
     }
 
