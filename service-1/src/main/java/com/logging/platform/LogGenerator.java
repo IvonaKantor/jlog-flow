@@ -38,14 +38,13 @@ public class LogGenerator {
                 MDC.put("log-generator-id", String.valueOf(++counter));
                 final String logMessage = "Generated log entry: New application event occurred at " + System.currentTimeMillis();
 
-                if(counter % 10 == 0) {
+                if (counter % 10 == 0) {
                     log.error("test exception", new RuntimeException("test exception"));
-                }else if(counter % 5 == 0) {
+                } else if (counter % 5 == 0) {
                     log.warn("warning message");
-                }else if(counter % 11 == 0) {
+                } else if (counter % 11 == 0) {
                     log.debug("Debug information. System time:{}", System.currentTimeMillis());
-                }
-                else{
+                } else {
                     log.info(logMessage);
                 }
                 counter++;
